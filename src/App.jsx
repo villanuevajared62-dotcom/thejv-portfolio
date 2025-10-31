@@ -29,7 +29,7 @@ function App() {
 
   if (showIntro) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 flex flex-col items-center justify-center text-white text-center px-4 animate-fadeIn">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 flex flex-col items-center justify-center text-white text-center px-4">
         <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20">
           <h1 className="text-6xl md:text-8xl font-bold mb-8 animate-bounce drop-shadow-2xl bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">Hi, I'm Jared</h1>
           <p className="text-xl md:text-2xl mb-12 opacity-90 typewriter-text max-w-md">{typewriterText}</p>
@@ -60,7 +60,7 @@ function App() {
       </nav>
 
       {/* Home Section */}
-      <section id="home" className="pt-20 pb-20 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white text-center animate-fadeIn">
+      <section id="home" className="pt-20 pb-20 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white text-center">
         <div className="max-w-4xl mx-auto px-4">
           <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20">
             <img src="https://via.placeholder.com/150?text=Your+Photo" alt="Robert Jared" className="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg" />
@@ -74,7 +74,7 @@ function App() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-4 animate-slideUp">
+      <section id="projects" className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 drop-shadow-sm bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">My Projects</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -99,7 +99,7 @@ function App() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-4 bg-gradient-to-r from-gray-100 to-indigo-50 animate-slideUp">
+      <section id="about" className="py-20 px-4 bg-gradient-to-r from-gray-100 to-indigo-50">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-8 text-gray-800 drop-shadow-sm bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">About Me</h2>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">I'm passionate about creating user-friendly web experiences. With 2+ years in JS and React, I've worked on apps for startups and freelanced designs. Let's collaborate!</p>
@@ -118,7 +118,7 @@ function App() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 animate-slideUp">
+      <section id="contact" className="py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-8 text-gray-800 drop-shadow-sm bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Get in Touch</h2>
           <p className="text-gray-600 mb-8 text-lg">Shoot me an email: robert@example.com</p>
