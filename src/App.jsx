@@ -1,35 +1,102 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+
+const projects = [
+  { id: 1, title: 'Project 1: Weather App', description: 'A responsive app showing real-time weather using API.', image: 'https://via.placeholder.com/400x200?text=Weather+App', link: 'https://example.com/project1' },
+  { id: 2, title: 'Project 2: Todo List', description: 'Full-stack task manager with local storage.', image: 'https://via.placeholder.com/400x200?text=Todo+List', link: 'https://example.com/project2' },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showIntro, setShowIntro] = useState(true);
+
+  const handleContinue = () => {
+    setShowIntro(false);
+  };
+
+  if (showIntro) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex flex-col items-center justify-center text-white text-center px-4">
+        <h1 className="text-6xl md:text-8xl font-bold mb-8 animate-bounce">Hi, I'm Jared</h1>
+        <p className="text-xl md:text-2xl mb-12 opacity-90">Welcome to my world of code and creativity.</p>
+        <button
+          onClick={handleContinue}
+          className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+        >
+          Visit My Profile →
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="min-h-screen bg-gray-50">
+      <nav className="bg-white shadow-md fixed w-full top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-gray-800">Robert Jared</h1>
+          <ul className="flex space-x-6">
+            <li><a href="#home" className="text-gray-600 hover:text-blue-600">Home</a></li>
+            <li><a href="#projects" className="text-gray-600 hover:text-blue-600">Projects</a></li>
+            <li><a href="#about" className="text-gray-600 hover:text-blue-600">About</a></li>
+            <li><a href="#contact" className="text-gray-600 hover:text-blue-600">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <section id="home" className="pt-20 pb-20 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-center">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-5xl font-bold mb-4">Hi, I'm Robert Jared</h2>
+          <p className="text-xl mb-8">Full-Stack Developer & Designer. Building cool stuff with code.</p>
+          <a href="#projects" className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100">See My Work</a>
+        </div>
+      </section>
+
+      <section id="projects" className="py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">My Projects</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {projects.map(project => (
+              <div key={project.id} className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                  <p className="text-gray-600 mb-4">{project.description}</p>
+                  <a href={project.link} target="_blank" className="text-blue-500 font-semibold hover:underline">View Live →</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="about" className="py-20 px-4 bg-gray-100">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-8 text-gray-800">About Me</h2>
+          <p className="text-lg text-gray-600 mb-8">I'm passionate about creating user-friendly web experiences. With 2+ years in JS and React, I've worked on apps for startups and freelanced designs.</p>
+          <div className="flex justify-center space-x-6">
+            <a href="#" className="text-blue-500 hover:underline">LinkedIn</a>
+            <a href="#" className="text-gray-500 hover:underline">GitHub</a>
+            <a href="#" className="text-pink-500 hover:underline">Twitter</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="py-20 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-8 text-gray-800">Get in Touch</h2>
+          <p className="text-gray-600 mb-8">Shoot me an email: robert@example.com</p>
+          <form className="max-w-md mx-auto space-y-4">
+            <input type="text" placeholder="Your Name" className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input type="email" placeholder="Your Email" className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <textarea placeholder="Message" rows="4" className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition-colors">Send Message</button>
+          </form>
+        </div>
+      </section>
+
+      <footer className="bg-gray-800 text-white py-6 text-center">
+        <p>&copy; 2025 Robert Jared. Built with React & Tailwind.</p>
+      </footer>
+    </div>
+  );
 }
 
-export default App
+export default App;
