@@ -90,14 +90,32 @@ function App() {
       {/* Hero Section */}
       <section id="home" className="hero">
         <div className="hero-content">
+          {/* PROFILE PICTURE - Change the src to your image URL */}
+          <div className="hero-profile">
+            <img 
+             src="/src/assets/profile.jpg"
+              alt="Profile" 
+              className="profile-image"
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.nextElementSibling.style.display = 'flex';
+              }}
+            />
+            <div className="profile-placeholder">👨‍💻</div>
+          </div>
+
           <div className="glitch" data-text="HELLO">HELLO</div>
           <h1 className="hero-title">
             I'm a <span className="gradient-text">Full Stack Developer</span>
           </h1>
           <p className="hero-subtitle">Creating beautiful and functional web experiences</p>
           <div className="hero-buttons">
-            <button className="btn-primary">View My Work</button>
-            <button className="btn-secondary">Contact Me</button>
+            <button className="btn-primary" onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })}>
+              View My Work
+            </button>
+            <button className="btn-secondary" onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}>
+              Contact Me
+            </button>
           </div>
         </div>
         <div className="scroll-indicator">
@@ -141,7 +159,22 @@ function App() {
             </div>
             <div className="about-image">
               <div className="image-frame">
-                <div className="profile-placeholder">👨‍💻</div>
+                {/* SECOND PROFILE PICTURE - Change the src to your image URL */}
+                <img 
+                  src="https://i.imgur.com/placeholder.jpg"
+                  alt="Profile" 
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover',
+                    borderRadius: '10px'
+                  }}
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextElementSibling.style.display = 'flex';
+                  }}
+                />
+                <div className="profile-placeholder" style={{ display: 'none' }}>👨‍💻</div>
               </div>
             </div>
           </div>
