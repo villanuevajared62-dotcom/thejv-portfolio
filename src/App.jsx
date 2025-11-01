@@ -1,96 +1,195 @@
-import { useState, useEffect } from 'react';
-
-const projects = [
-  { id: 1, title: 'Weather App', description: 'Real-time weather dashboard with API integration.', image: 'https://via.placeholder.com/400x200?text=Weather+App', link: 'https://example.com/project1' },
-  { id: 2, title: 'Todo List Manager', description: 'Full-stack task app with local storage and drag-drop.', image: 'https://via.placeholder.com/400x200?text=Todo+List', link: 'https://example.com/project2' },
-  { id: 3, title: 'E-Commerce Site', description: 'Online store with Stripe payments and React Router.', image: 'https://via.placeholder.com/400x200?text=E-Commerce', link: 'https://example.com/project3' },
-];
+import React, { useState, useEffect } from 'react';
+import './App.css';
 
 function App() {
-  const [showIntro, setShowIntro] = useState(true);
-  const [typewriterText, setTypewriterText] = useState('');
+  const [activeSection, setActiveSection] = useState('home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    if (showIntro) {
-      const fullText = "Welcome to my world of code and creativity.";
-      let i = 0;
-      const timer = setInterval(() => {
-        setTypewriterText(fullText.slice(0, i));
-        i++;
-        if (i > fullText.length) clearInterval(timer);
-      }, 100);
-      return () => clearInterval(timer);
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const projects = [
+    {
+      title: "E-Commerce Platform",
+      description: "Full-stack web application with payment integration",
+      tech: ["React", "Node.js", "MongoDB"],
+      image: "🛒"
+    },
+    {
+      title: "Portfolio Website",
+      description: "Modern responsive portfolio with animations",
+      tech: ["React", "CSS3", "JavaScript"],
+      image: "💼"
+    },
+    {
+      title: "Task Management App",
+      description: "Real-time collaboration tool for teams",
+      tech: ["Vue.js", "Firebase", "Tailwind"],
+      image: "✅"
+    },
+    {
+      title: "Weather Dashboard",
+      description: "Interactive weather forecast application",
+      tech: ["React", "API", "Charts.js"],
+      image: "🌤️"
     }
-  }, [showIntro]);
+  ];
 
-  const handleContinue = () => {
-    setShowIntro(false);
-  };
-
-  if (showIntro) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 flex flex-col items-center justify-center text-white text-center px-4">
-        <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20">
-          <h1 className="text-6xl md:text-8xl font-bold mb-8 animate-bounce drop-shadow-2xl bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">Hi, I'm Jared</h1>
-          <p className="text-xl md:text-2xl mb-12 opacity-90 typewriter-text max-w-md">{typewriterText}</p>
-          <button
-            onClick={handleContinue}
-            className="bg-white text-indigo-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
-          >
-            Visit My Profile →
-          </button>
-        </div>
-      </div>
-    );
-  }
+  const skills = [
+    { name: "React", level: 90 },
+    { name: "JavaScript", level: 85 },
+    { name: "HTML/CSS", level: 95 },
+    { name: "Node.js", level: 80 },
+    { name: "Python", level: 75 },
+    { name: "UI/UX Design", level: 70 }
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-indigo-50">
+    <div className="app">
+      {/* Animated Background */}
+      <div className="bg-animation">
+        <div className="red-orb" style={{
+          left: `${mousePosition.x * 0.02}px`,
+          top: `${mousePosition.y * 0.02}px`
+        }}></div>
+        <div className="grid-overlay"></div>
+      </div>
+
       {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md shadow-lg fixed w-full top-0 z-10 border-b border-indigo-100">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-800 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Robert Jared</h1>
-          <ul className="flex space-x-6">
-            <li><a href="#home" className="text-gray-600 hover:text-indigo-600 transition-colors font-medium">Home</a></li>
-            <li><a href="#projects" className="text-gray-600 hover:text-indigo-600 transition-colors font-medium">Projects</a></li>
-            <li><a href="#about" className="text-gray-600 hover:text-indigo-600 transition-colors font-medium">About</a></li>
-            <li><a href="#contact" className="text-gray-600 hover:text-indigo-600 transition-colors font-medium">Contact</a></li>
-          </ul>
+      <nav className="navbar">
+        <div className="logo">
+          <span className="logo-bracket">{"<"}</span>
+          PORTFOLIO
+          <span className="logo-bracket">{"/>"}</span>
+        </div>
+        <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
+          <a href="#home" onClick={() => setActiveSection('home')} 
+             className={activeSection === 'home' ? 'active' : ''}>Home</a>
+          <a href="#about" onClick={() => setActiveSection('about')}
+             className={activeSection === 'about' ? 'active' : ''}>About</a>
+          <a href="#projects" onClick={() => setActiveSection('projects')}
+             className={activeSection === 'projects' ? 'active' : ''}>Projects</a>
+          <a href="#skills" onClick={() => setActiveSection('skills')}
+             className={activeSection === 'skills' ? 'active' : ''}>Skills</a>
+          <a href="#contact" onClick={() => setActiveSection('contact')}
+             className={activeSection === 'contact' ? 'active' : ''}>Contact</a>
+        </div>
+        <div className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
       </nav>
 
-      {/* Home Section */}
-      <section id="home" className="pt-20 pb-20 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white text-center">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20">
-            <img src="https://via.placeholder.com/150?text=Your+Photo" alt="Robert Jared" className="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg" />
-            <h2 className="text-5xl md:text-7xl font-bold mb-4 drop-shadow-2xl bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">Hi, I'm Robert Jared</h2>
-            <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed">Full-Stack Developer & Designer. Building cool stuff with code and creativity.</p>
-            <a href="#projects" className="bg-white text-indigo-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl">
-              See My Work →
-            </a>
+      {/* Hero Section */}
+      <section id="home" className="hero">
+        <div className="hero-content">
+          <div className="glitch" data-text="HELLO">HELLO</div>
+          <h1 className="hero-title">
+            I'm a <span className="gradient-text">Full Stack Developer</span>
+          </h1>
+          <p className="hero-subtitle">Creating beautiful and functional web experiences</p>
+          <div className="hero-buttons">
+            <button className="btn-primary">View My Work</button>
+            <button className="btn-secondary">Contact Me</button>
+          </div>
+        </div>
+        <div className="scroll-indicator">
+          <div className="mouse"></div>
+          <span>Scroll Down</span>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="about">
+        <div className="container">
+          <h2 className="section-title">
+            <span className="title-number">01.</span> About Me
+          </h2>
+          <div className="about-content">
+            <div className="about-text">
+              <p>
+                I'm a passionate developer who loves creating innovative web solutions. 
+                With years of experience in full-stack development, I specialize in building 
+                responsive and user-friendly applications.
+              </p>
+              <p>
+                My journey in web development started with curiosity and has evolved into 
+                a career dedicated to crafting exceptional digital experiences. I'm constantly 
+                learning new technologies and best practices to stay at the forefront of the industry.
+              </p>
+              <div className="about-stats">
+                <div className="stat">
+                  <h3>50+</h3>
+                  <p>Projects Completed</p>
+                </div>
+                <div className="stat">
+                  <h3>5+</h3>
+                  <p>Years Experience</p>
+                </div>
+                <div className="stat">
+                  <h3>30+</h3>
+                  <p>Happy Clients</p>
+                </div>
+              </div>
+            </div>
+            <div className="about-image">
+              <div className="image-frame">
+                <div className="profile-placeholder">👨‍💻</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 drop-shadow-sm bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">My Projects</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section id="projects" className="projects">
+        <div className="container">
+          <h2 className="section-title">
+            <span className="title-number">02.</span> Featured Projects
+          </h2>
+          <div className="projects-grid">
             {projects.map((project, index) => (
-              <div
-                key={project.id}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group bg-gradient-to-br from-white to-indigo-50"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <img src={project.image} alt={project.title} className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-gray-800">{project.title}</h3>
-                  <p className="text-gray-600 mb-4">{project.description}</p>
-                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-indigo-600 font-semibold hover:underline transition-colors">
-                    View Live →
-                  </a>
+              <div key={index} className="project-card">
+                <div className="project-icon">{project.image}</div>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <div className="project-tech">
+                  {project.tech.map((tech, i) => (
+                    <span key={i} className="tech-tag">{tech}</span>
+                  ))}
+                </div>
+                <button className="project-link">View Project →</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section id="skills" className="skills">
+        <div className="container">
+          <h2 className="section-title">
+            <span className="title-number">03.</span> Skills & Expertise
+          </h2>
+          <div className="skills-grid">
+            {skills.map((skill, index) => (
+              <div key={index} className="skill-item">
+                <div className="skill-header">
+                  <span className="skill-name">{skill.name}</span>
+                  <span className="skill-percentage">{skill.level}%</span>
+                </div>
+                <div className="skill-bar">
+                  <div 
+                    className="skill-progress" 
+                    style={{ width: `${skill.level}%` }}
+                  ></div>
                 </div>
               </div>
             ))}
@@ -98,44 +197,62 @@ function App() {
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 px-4 bg-gradient-to-r from-gray-100 to-indigo-50">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-8 text-gray-800 drop-shadow-sm bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">About Me</h2>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">I'm passionate about creating user-friendly web experiences. With 2+ years in JS and React, I've worked on apps for startups and freelanced designs. Let's collaborate!</p>
-          <div className="flex justify-center space-x-8 text-xl">
-            <a href="#" className="text-indigo-600 hover:text-indigo-800 transition-colors transform hover:scale-110 shadow-lg p-3 rounded-full bg-white/80 backdrop-blur">
-              <i className="fab fa-linkedin"></i>
-            </a>
-            <a href="#" className="text-gray-700 hover:text-gray-900 transition-colors transform hover:scale-110 shadow-lg p-3 rounded-full bg-white/80 backdrop-blur">
-              <i className="fab fa-github"></i>
-            </a>
-            <a href="#" className="text-pink-500 hover:text-pink-700 transition-colors transform hover:scale-110 shadow-lg p-3 rounded-full bg-white/80 backdrop-blur">
-              <i className="fab fa-twitter"></i>
-            </a>
+      {/* Contact Section */}
+      <section id="contact" className="contact">
+        <div className="container">
+          <h2 className="section-title">
+            <span className="title-number">04.</span> Get In Touch
+          </h2>
+          <div className="contact-content">
+            <div className="contact-info">
+              <h3>Let's work together!</h3>
+              <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.</p>
+              <div className="contact-methods">
+                <div className="contact-method">
+                  <span className="contact-icon">📧</span>
+                  <div>
+                    <h4>Email</h4>
+                    <p>your.email@example.com</p>
+                  </div>
+                </div>
+                <div className="contact-method">
+                  <span className="contact-icon">📱</span>
+                  <div>
+                    <h4>Phone</h4>
+                    <p>+63 XXX XXX XXXX</p>
+                  </div>
+                </div>
+                <div className="contact-method">
+                  <span className="contact-icon">📍</span>
+                  <div>
+                    <h4>Location</h4>
+                    <p>Philippines</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <form className="contact-form">
+              <input type="text" placeholder="Your Name" required />
+              <input type="email" placeholder="Your Email" required />
+              <input type="text" placeholder="Subject" required />
+              <textarea placeholder="Your Message" rows="5" required></textarea>
+              <button type="submit" className="btn-primary">Send Message</button>
+            </form>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-8 text-gray-800 drop-shadow-sm bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Get in Touch</h2>
-          <p className="text-gray-600 mb-8 text-lg">Shoot me an email: robert@example.com</p>
-          <form className="max-w-md mx-auto space-y-4 bg-white rounded-2xl p-6 shadow-lg">
-            <input type="text" placeholder="Your Name" className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all" required />
-            <input type="email" placeholder="Your Email" className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all" required />
-            <textarea placeholder="Your Message" rows="4" className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none" required></textarea>
-            <button type="submit" className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
-              Send Message
-            </button>
-          </form>
-        </div>
-      </section>
-
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-gray-900 to-indigo-900 text-white py-8 text-center">
-        <p className="text-gray-400">© 2025 Robert Jared. Built with React & Tailwind. All rights reserved.</p>
+      <footer className="footer">
+        <div className="container">
+          <div className="social-links">
+            <a href="#" className="social-link">GitHub</a>
+            <a href="#" className="social-link">LinkedIn</a>
+            <a href="#" className="social-link">Twitter</a>
+            <a href="#" className="social-link">Instagram</a>
+          </div>
+          <p className="footer-text">© 2024 Portfolio. Designed & Built by You</p>
+        </div>
       </footer>
     </div>
   );
