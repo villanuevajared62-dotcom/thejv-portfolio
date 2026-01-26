@@ -90,10 +90,10 @@ function App() {
       {/* Hero Section */}
       <section id="home" className="hero">
         <div className="hero-content">
-          {/* PROFILE PICTURE - Change the src to your image URL */}
+          {/* PROFILE PICTURE - FIXED PATH */}
           <div className="hero-profile">
             <img 
-             src="/src/assets/profile.jpg"
+              src="/profile.jpg"
               alt="Profile" 
               className="profile-image"
               onError={(e) => {
@@ -159,9 +159,9 @@ function App() {
             </div>
             <div className="about-image">
               <div className="image-frame">
-                {/* SECOND PROFILE PICTURE - Change the src to your image URL */}
+                {/* SECOND PROFILE PICTURE - FIXED PATH */}
                 <img 
-                  src="https://i.imgur.com/placeholder.jpg"
+                  src="/profile.jpg"
                   alt="Profile" 
                   style={{ 
                     width: '100%', 
