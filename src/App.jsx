@@ -161,7 +161,7 @@ function App() {
               <div className="image-frame">
                 {/* SECOND PROFILE PICTURE - FIXED PATH */}
                 <img 
-                  src="/profile.jpg"
+                  src="assets/profile.jpg"
                   alt="Profile" 
                   style={{ 
                     width: '100%', 
